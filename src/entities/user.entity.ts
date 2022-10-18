@@ -3,30 +3,30 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Col
 
 @Entity("users")
 class User {
-  @Column()
+  @PrimaryGeneratedColumn("uuid")
+  id: string
+
+  @Column({ nullable: false })
   name: string
 
-  @Column({unique: true})
-  email: string 
-
-  @Column()
+  @Column({ unique: true, nullable: false })
+  email: string
+  
+  @Column({ nullable: false })
+  isAdm: boolean
+  
+  @Column({ default: true, nullable: false })
+  isActive: boolean
+  
+  @Column({ nullable: false })
   @Exclude()
   password: string
 
-  @Column()
-  isAdm: boolean
-
-  @Column({ default: true })
-  isActive: boolean
-
-  @CreateDateColumn()
+  @CreateDateColumn({ name: "created_at", nullable: false })
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: "updated_at", nullable: false })
   updatedAt: Date
-
-  @PrimaryGeneratedColumn("uuid")
-  id: string
 }
 
 export { User }
