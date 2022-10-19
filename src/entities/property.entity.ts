@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, IsNull, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, IsNull, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { Address } from "./address.entity"
+import { Schedules } from "./schedules_user_properties.entity"
 
 @Entity("properties")
 class Property {
@@ -26,6 +27,9 @@ class Property {
     nullable: false
   }) @JoinColumn()
   address: Address
+
+  @OneToMany(() => Schedules, schedules => schedules.property)
+  schedules: Schedules[]
 }
 
 export { Property }

@@ -1,5 +1,6 @@
 import { Exclude } from "class-transformer"
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Column, OneToMany } from "typeorm"
+import { Schedules } from "./schedules_user_properties.entity"
 
 @Entity("users")
 class User {
@@ -27,6 +28,9 @@ class User {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date
+
+  @OneToMany(() => Schedules, schedules => schedules.user)
+  schedules: Schedules[]
 }
 
 export { User }
