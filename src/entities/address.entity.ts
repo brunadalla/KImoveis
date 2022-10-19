@@ -5,19 +5,19 @@ class Address {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
-  @Column({ nullable: false })
+  @Column()
   district: string
 
-  @Column({ nullable: false })
+  @Column()
   zipCode: string
 
-  @Column({ nullable: false })
+  @Column()
   number: string
 
-  @Column({ nullable: false })
+  @Column()
   city: string
 
-  @Column({ nullable: false })
+  @Column()
   state: string
 }
 

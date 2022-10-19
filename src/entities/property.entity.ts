@@ -9,23 +9,23 @@ class Property {
   @Column({ default: false })
   sold: boolean
 
-  @Column("decimal", { precision: 12, scale: 2, nullable: false })
+  @Column("decimal", { precision: 12, scale: 2 })
   value: number
 
-  @Column("integer", { nullable: false })
+  @Column("integer")
   size: number
 
-  @CreateDateColumn({ name: "created_at", nullable: false })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date
 
-  @UpdateDateColumn({ name: "updated_at", nullable: false })
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date
 
   @OneToOne(() => Address, (address) => address.id, {
     eager: true,
     nullable: false
   }) @JoinColumn()
-  addressId: Address
+  address: Address
 }
 
 export { Property }

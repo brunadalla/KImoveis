@@ -6,26 +6,26 @@ class User {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
-  @Column({ nullable: false })
+  @Column()
   name: string
 
-  @Column({ unique: true, nullable: false })
+  @Column({ unique: true })
   email: string
   
-  @Column({ nullable: false })
+  @Column()
   isAdm: boolean
   
-  @Column({ default: true, nullable: false })
+  @Column({ default: true })
   isActive: boolean
   
-  @Column({ nullable: false })
+  @Column()
   @Exclude()
   password: string
 
-  @CreateDateColumn({ name: "created_at", nullable: false })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date
 
-  @UpdateDateColumn({ name: "updated_at", nullable: false })
+  @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date
 }
 
