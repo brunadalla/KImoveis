@@ -3,7 +3,7 @@ import { Property } from "./property.entity"
 import { User } from "./user.entity"
 
 @Entity("schedules_user_properties")
-class Schedules {
+class Schedule {
   @PrimaryGeneratedColumn("uuid")
   id: string
 
@@ -20,4 +20,4 @@ class Schedules {
   property: Property
 }
 
-export { Schedules }
+export { Schedule }
