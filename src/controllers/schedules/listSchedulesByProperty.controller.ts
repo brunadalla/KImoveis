@@ -5,6 +5,7 @@ import listSchedulesByPropertyService from "../../services/schedules/listSchedul
 const listSchedulesByPropertyController = async ( req: Request, res: Response ) => {
   const id = req.params.id
   const schedules = await listSchedulesByPropertyService(id)
+  
   return res.json(schedules)
 }
 

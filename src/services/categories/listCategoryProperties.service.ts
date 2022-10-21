@@ -1,20 +1,25 @@
-import AppDataSource from '../../data-source'
+import AppDataSource from "../../data-source"
+import { AppError } from "../../errors/appError"
 
-import { Category } from '../../entities/category.entity'
-import { Property } from '../../entities/property.entity'
+import { Category } from "../../entities/category.entity"
 
-const listCategoryPropertiesService = async(id: string): Promise<Property[]> => {
+const listCategoryPropertiesService = async (id: string): Promise<Category> => {
+  const categoryRepository = AppDataSource.getRepository(Category)
 
-    const categoryRepository = AppDataSource.getRepository(Category)
+  const category = await categoryRepository.findOne({
+    where: {
+      id,
+    },
+    relations: {
+      properties: true,
+    },
+  })
 
-    const category = await categoryRepository.findOne({
-        where: {
-            id
-        }
-    })
-    
-    return category?.properties!
+  if (!category) {
+    throw new AppError("Category does not exist!", 404)
+  }
 
+  return category!
 }
 
 export default listCategoryPropertiesService

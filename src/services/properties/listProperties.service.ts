@@ -3,7 +3,11 @@ import { Property } from "../../entities/property.entity"
 
 const listPropertiesService = async (): Promise<Property[]> => {
   const propertyRepository = AppDataSource.getRepository(Property)
-  const properties = await propertyRepository.find()
+  const properties = await propertyRepository.find({
+    relations: {
+      schedules: true
+    }
+  })
 
   return properties
 }

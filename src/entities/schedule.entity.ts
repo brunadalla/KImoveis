@@ -1,4 +1,5 @@
 import { CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+
 import { Property } from "./property.entity"
 import { User } from "./user.entity"
 
@@ -13,7 +14,7 @@ class Schedule {
   @CreateDateColumn({ type: "time" })
   hour: Date
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { eager: true })
   user: User
 
   @ManyToOne(() => Property)

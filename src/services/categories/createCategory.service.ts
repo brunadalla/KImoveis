@@ -14,7 +14,7 @@ const createCategoryService = async ({ name }: ICategoryRequest): Promise<Catego
   })
 
   if (categoryAlreadyExists) {
-    throw new AppError("email already exists", 401)
+    throw new AppError("Category already exists!", 400)
   }
 
   const newCategory = categoryRepository.create({

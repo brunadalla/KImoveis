@@ -17,7 +17,7 @@ const createUserService = async ({ name, email, password, isAdm }: IUserRequest)
   })
 
   if (emailAlreadyExists) {
-    throw new AppError('email already being used', 401)
+    throw new AppError('email already being used', 400)
   }
 
   const newUser = userRepository.create({

@@ -1,18 +1,25 @@
 import AppDataSource from "../../data-source"
-
+import { AppError } from "../../errors/appError"
 import { Property } from "../../entities/property.entity"
-import { Schedule } from "../../entities/schedule.entity"
 
-const listSchedulesByPropertyService = async ( id: string ): Promise<Schedule[]> => {
+const listSchedulesByPropertyService = async ( id: string ): Promise<Property> => {
   const propertyRepository = AppDataSource.getRepository(Property)
 
   const property = await propertyRepository.findOne({
     where: {
       id,
     },
+    relations: {
+      schedules: true,
+    }
   })
 
-  return property?.schedules!
+  if (!property) {
+    throw new AppError("Property does not exist!", 404)
+  }
+  console.log(property)
+
+  return property
 }
 
 export default listSchedulesByPropertyService

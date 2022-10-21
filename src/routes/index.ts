@@ -1,10 +1,10 @@
 import { Express } from "express"
 
-import { categoriesRouter } from "./categories.routes"
+import { usersRouter } from "./users.routes"
 import { loginRouter } from "./login.routes"
+import { categoriesRouter } from "./categories.routes"
 import { propertiesRouter } from "./properties.routes"
 import { schedulesRouter } from "./schedules.routes"
-import { usersRouter } from "./users.routes"
 
 export const appRoutes = (app: Express) => {
   app.use("/users", usersRouter())

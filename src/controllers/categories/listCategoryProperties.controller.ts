@@ -5,6 +5,7 @@ import listCategoryPropertiesService from "../../services/categories/listCategor
 const listCategoryPropertiesController = async ( req: Request, res: Response ) => {
   const id = req.params.id
   const properties = await listCategoryPropertiesService(id)
+  
   return res.json(properties)
 }
 
