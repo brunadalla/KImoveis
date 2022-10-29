@@ -19,7 +19,7 @@ const listCategoryPropertiesService = async (id: string): Promise<Category> => {
     throw new AppError("Category does not exist!", 404)
   }
 
-  return category!
+  return category
 }
 
 export default listCategoryPropertiesService

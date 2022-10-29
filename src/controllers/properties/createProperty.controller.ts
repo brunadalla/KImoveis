@@ -4,7 +4,7 @@ import createPropertyService from "../../services/properties/createProperty.serv
 import { IPropertyRequest } from "../../interfaces/properties"
 
 const createPropertyController = async (req: Request, res: Response) => {
-  const data: IPropertyRequest = req.body
+  const data = req.body
   const property = await createPropertyService(data)
 
   return res.status(201).json(property)

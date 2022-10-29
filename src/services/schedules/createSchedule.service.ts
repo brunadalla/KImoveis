@@ -46,10 +46,10 @@ const createScheduleService = async ({ date, hour, propertyId, userId }: ISchedu
 
   const dateDay = scheduleDate.getDay()
 
-  const scheduleAlreadyExists = property!.schedules.find(
+  const scheduleAlreadyExists = property.schedules.find(
     (schedule) =>
-      schedule.date.getDay() == dateDay &&
-      (schedule.date.getHours() * 3600 * 1000) + (schedule.date.getMinutes() * 60 * 1000) == dateHours
+      schedule.date.getDay() === dateDay &&
+      (schedule.date.getHours() * 3600 * 1000) + (schedule.date.getMinutes() * 60 * 1000) === dateHours
   )
 
   if (scheduleAlreadyExists) {
@@ -61,14 +61,14 @@ const createScheduleService = async ({ date, hour, propertyId, userId }: ISchedu
   }
 
   if (dateDay === 0 || dateDay === 6) {
-    throw new AppError( "Visits are not allowed on these days: Sunday and Saturday.", 400)
+    throw new AppError( "Visits are not allowed on these days: Saturday and Sunday.", 400)
   }
 
   const newSchedule = scheduleRepository.create({
     date: scheduleDate,
     hour,
     user: user!,
-    property: property!,
+    property: property,
   })
 
   await scheduleRepository.save(newSchedule)
