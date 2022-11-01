@@ -17,7 +17,6 @@ const listSchedulesByPropertyService = async ( id: string ): Promise<Property> =
   if (!property) {
     throw new AppError("Property does not exist!", 404)
   }
-  console.log(property)
 
   return property
 }

@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { instanceToPlain } from "class-transformer"
 
-import { IUserUpdate } from "../../interfaces/users"
 import editUserService from "../../services/users/editUser.service"
 
 const editUserController = async (req: Request, res: Response) => {
