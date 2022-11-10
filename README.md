@@ -1,114 +1,119 @@
-# S5-19 | 🏁 Entrega: KImóveis - TypeORM com Relacionamentos
+## KImóveis
+Projeto realizado no quarto módulo do curso de **Formação em Desenvolvimento Full Stack da Kenzie Academy Brasil**
 
-Para inciar este projeto, é necessário instalar as dependências, que serão utilizadas nos testes. Portanto utilize o comando abaixo para instalar tais dependências:
-
-````
-yarn install
-````
+O objetivo desse projeto é desenvolver um serviço de back-end responsável por gerenciar uma imobiliária utilizando **TypeORM** e **relacionamentos**
 
 
-**Atenção:** é necessário utilizar o `yarn` pois esse projeto foi iniciado com esse gerenciador de pacotes.
-
-Para verificar se já possui o gerenciador yarn instalado utilize o seguinte comando:
-
-````
-yarn --version
-````
-
-Caso não possua o yarn instalado, utilize o comando abaixo para instalar globalmente na sua máquina:
-
-````
-npm install --global yarn
-````
-<br>
+Rotas e suas funcionalidades:
 
 
-Essa entrega já está com o Docker configurado, basta preencher as variáveis de ambiente no .env
+- **POST /users**
 
-Basta buildar e subir nossos containers usando o comando padrão:
-````
-docker-compose up --build
-````
+Rota para criação de usuário com os seguintes dados:
+1. name: string;
+2. email: string;
+3. password: string (armazenada como hash);
+4. isAdm: boolean;
+5. isActive: boolean (default = true), gerado no momento da validação dos dados;
+6. createdAt: Date, gerado no momento da validação dos dados;
+7. updatedAt: Date, iniciado com o valor de criação e atualizado sempre que esse usuário for editado;
+8. id: string (uuid), gerado no momento da validação dos dados.
 
-ou
-````
-docker compose up --build
-````
-O comando pode variar com a versão do docker compose instalada em sua máquina
-
-***ATENÇÃO:*** a porta utilizada para rodar nosso docker é a `5431`.
-Caso tenha algum problema com essa porta, basta alterá-la no docker-compose.yml.
-
-<br>
-
-# **Sobre os testes**
-
-Essa aplicação possui testes, que serão utilizados para validar, se todas as regras de negócio foram aplicadas de maneira correta.
-
-Os testes estão localizados em `src/__tests__`.
-
-Na subpasta `integration` estão os testes.
-
-Já na subpasta `mocks` estão os dados que serão utilizados para os testes.
-
-No arquivo `jest.config.json` estão algumas configurações necessárias para os testes rodarem.
-
-**`De modo algum altere qualquer um desses arquivos.`** Isso poderá comprometer a integridade dos testes.
-
-E também não altere o script de `test` localizado no `package.json`. Isso será utilizado para rodar os testes.
-
-<br>
+A rota de criação retorna todos os dados, com exceção da hash de senha.
+Não é possível cadastrar dois usuário com o mesmo e-mail.
 
 
-# **Rodando os testes** 
+- **GET /users**
 
-Para rodar os testes é necessário que no seu terminal, você esteja dentro do diretório do projeto.
-
-Estando no terminal e dentro do caminho correto, você poderá utilizar os comandos a seguir:
-
-### Rodar todos os testes
-````
-yarn test
-````
-#
-### Rodar todos os testes e ter um log ainda mais completo
-````
-yarn test --all
-````
-#
-
-### Rodar os testes de uma pasta específica
-`detalhe: repare que tests está envolvido por 2 underlines. Isso se chama dunder.`
-````
-yarn test ./scr/__tests__/integration/<subpasta>
-````
-#
-### Rodar os testes de um arquivo específico
-````
-yarn test ./scr/__tests__/integration/<subpasta>/<arquivo>
-````
-#
-### Rodar um teste específico
-````
-yarn test -t <describe ou test específico envolto em aspas>
-````
-````
-\\ ex: yarn test -t "/categories"
-\\ rodaria os testes do describe "/categorias" no caminho
-\\ ./scr/__tests__/integration/categories/categoriesRoutes.test.ts
-````
-
-<br>
+A rota retorna todos os dados dos usuários, com exceção da hash de senha. 
+Pode ser acessada apenas por administradores.
 
 
-**Caso você queira verificar todas as opções de execução de testes, visite a [Documentação oficial do Jest](https://jestjs.io/docs/cli)**
+- **PATCH /users/<id>**
 
-Após rodar um dos comandos aparecerá um log no seu terminal, contendo as informações da execução do teste.
-
-**Observação:** O teste pode demorar alguns segundos para ser finalizado. Quanto maior for o teste, mais tempo será consumido para a execução.
-
-#
+A rota serve para atualizar os dados do usuário,.
+Não é possível atualizar os campos id, isAdm e isActive.
+Apenas administradores podem atualizar qualquer usuário, usuários não-administradores podem apenas atualizar seu próprio usuário.
 
 
+- **DELETE /users/<id>**
 
-### Agora que já sabe como iniciar o seu projeto e rodar os testes, é hora de colocar a mão no código!
+A rota realiza um soft delete do usuário, alterando isActive para false.
+Pode ser acessada apenas por administradores.
+Não é possível realizar um soft delete em um usuário já inativo.
+
+
+- **POST /login**
+
+Recebendo email e password.
+O login valida se o usuário existe e se a senha está correta.
+
+
+- **POST /categories**
+
+Rota para criação de categorias com os seguintes dados:
+1. name: string;
+2. id: string (uuid), gerado no momento da validação dos dados.
+
+A rota pode ser acessada apenas por administradores.
+
+
+- **GET /categories**
+
+A rota retorna todos os dados das categorias.
+Não precisa de autenticação para ser acessada.
+
+
+- **GET /categories/<id>/properties**
+
+A rota retorna todos os imóveis que pertencem a uma determinada categoria.
+Não precisa de autenticação para ser acessada.
+
+
+- **POST /properties**
+
+Rota para criação de um imóvel com os seguintes dados:
+1. value: number;
+2. size: number;
+3. address: um objeto com os seguintes dados:
+  1. district: string;
+  2. zipCode: string;
+  3. number: string;
+  4. city: string;
+  5. state: string.
+4. categoryId: string;
+5. id: string (uuid), gerado no momento da validação dos dados;
+6. sold: boolean (default = false), gerado no momento da validação dos dados;
+7.createdAt: Date, gerado no momento da validação dos dados;
+8.updatedAt: Date, gerado no momento da validação dos dados com o valor de criação e deve ser atualizado sempre que esse imóvel for editado.
+
+Não pode cadastrar dois imóveis com o mesmo endereço.
+Não pode cadastrar imóveis com o campo state maior que 2 dígitos.
+Não pode cadastrar imóveis com o campo zipCode maior que 8 dígitos.
+A rota pode ser acessada apenas por administradores.
+
+
+- **GET /properties**
+
+A rota retorna todos os imóveis.
+Não precisa de autenticação para ser acessada.
+
+
+- **POST /schedules**
+
+Rota responsável pelo agendamento de uma visita a um imóvel com os seguintes dados:
+1. date: string salvo como date no banco de dados;
+2. hour: string salvo como time no banco de dados;
+4. propertieId: string;
+5. userId: string (uuid) pego através do token do usuário;
+6. id: string (uuid), gerado no momento da validação dos dados.
+
+Não é possível agendar uma visita a um imóvel com a mesma data e hora.
+Só é possível agendar uma visita durante horário comercial (08:00 as 18:00).
+Só é possível agendar uma visita em dias úteis (segunda à sexta).
+
+
+- **GET /schedules/properties/<id>**
+
+A rota retorna todos os agendamentos de um imóvel.
+Pode ser acessada apenas por administradores.
