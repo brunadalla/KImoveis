@@ -76,17 +76,11 @@ Rota para criação de um imóvel com os seguintes dados:
 1. value: number;
 2. size: number;
 3. address: um objeto com os seguintes dados:
-  
   - district: string;
-  
   - zipCode: string;
-  
   - number: string;
-  
   - city: string;
-  
   - state: string.
-  
 4. categoryId: string;
 5. id: string (uuid), gerado no momento da validação dos dados;
 6. sold: boolean (default = false), gerado no momento da validação dos dados;
