@@ -77,15 +77,15 @@ Rota para criação de um imóvel com os seguintes dados:
 2. size: number;
 3. address: um objeto com os seguintes dados:
   
-  3.1. district: string;
+  - district: string;
   
-  3.2. zipCode: string;
+  - zipCode: string;
   
-  3.3. number: string;
+  - number: string;
   
-  3.4. city: string;
+  - city: string;
   
-  3.5. state: string.
+  - state: string.
   
 4. categoryId: string;
 5. id: string (uuid), gerado no momento da validação dos dados;
